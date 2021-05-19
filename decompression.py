@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-@author: Benoît Etienne, Alexandre Bosh
+@author: Benoît Etienne, Alexandre Bosch
 """
 
 import gzip
 import shutil
 import os
 
-# Function returning the path of the folder
+# function returning the path of the folder
 def get_path_folder(folder_name):
     folder_path = os.path.dirname(__file__)
     
@@ -19,7 +19,7 @@ def get_path_folder(folder_name):
     return path
 
 
-# Function to decompress .gz file to .csv file
+# function to decompress .gz file to .csv file
 def decompress_gz_to_csv(folder_name, attributes, start = 0, end = 500):  # start is used in the case when only some files have been decompressed
     path = get_path_folder(folder_name)
     
@@ -41,7 +41,7 @@ def decompress_gz_to_csv(folder_name, attributes, start = 0, end = 500):  # star
         f.close()
 
 
-#%% Decompress the .gz files in the dataset
+#%% decompress the .gz files in the dataset
 if __name__ == "__main__":
     decompress_gz_to_csv("job_events", "time,missing info,job ID,event type,user,scheduling class,job name,logical job name")
     

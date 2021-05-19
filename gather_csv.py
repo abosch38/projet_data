@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: Benoît Etienne, Alexandre Bosh
+@author: Benoît Etienne, Alexandre Bosch
 """
 
 from decompression import get_path_folder

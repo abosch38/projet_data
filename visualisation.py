@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: Benoît Etienne, Alexandre Bosh
+@author: Benoît Etienne, Alexandre Bosch
 """
 
 from pandas.plotting import scatter_matrix
@@ -10,18 +10,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+# function to set the title for the graph
+def get_title(graphe, table, target):
+    return graphe + ' with target variable "' + target + '" from the table "' + table +'"'
 
-#%% print with scatter_matrix
 
-def print_scatter(X):
+# print with scatter_matrix
+def print_scatter(X, table, target):
     plt.figure()
     scatter_matrix(X, diagonal='kde')
+    title = get_title("Scatter", table, target)
+    plt.suptitle(title)
     plt.show()
 
 
-
-#%% get_PCA
-
+# to instantiate the PCA
 def get_PCA(X):
     pca = PCA(n_components=3)
     pca_result = pca.fit_transform(X.values)
@@ -33,10 +36,11 @@ def get_PCA(X):
     return X, pca_result
 
 
-#%% print PCA en 2D
-
-def print_PCA_2D(X):
+# print with PCA in 2D
+def print_PCA_2D(X, table, target):
     plt.figure(figsize=(16,10))
+    title = get_title("PCA 2D", table, target)
+    plt.title(title)
     sns.scatterplot(
         x="pca-one", y="pca-two",
         palette=sns.color_palette("hls", 10),
@@ -46,9 +50,8 @@ def print_PCA_2D(X):
     )
 
 
-#%% print PCA en 3D
-
-def print_PCA_3D(X, Y):
+# print with PCA in 3D
+def print_PCA_3D(X, Y, table, target):
     ax = plt.figure(figsize=(16,10)).gca(projection='3d')
     ax.scatter(
         xs=X['pca-one'],
@@ -61,21 +64,24 @@ def print_PCA_3D(X, Y):
     ax.set_xlabel('pca-one')
     ax.set_ylabel('pca-two')
     ax.set_zlabel('pca-three')
+    title = get_title("PCA 3D", table, target)
+    plt.title(title)
     plt.show()
 
 
-#%%
-
-def print_t_SNE(X, pca_result):
+# print with t-SNE
+def print_t_SNE(X, pca_result, table, target):
     tsne = TSNE(n_components=2, verbose=0, perplexity=40, n_iter=300)
     tsne_pca_results = tsne.fit_transform(pca_result)
 
-    X['tsne-pca50-one'] = tsne_pca_results[:,0]
-    X['tsne-pca50-two'] = tsne_pca_results[:,1]
+    X['tsne-one'] = tsne_pca_results[:,0]
+    X['tsne-two'] = tsne_pca_results[:,1]
     
     plt.figure()
+    title = get_title("t-SNE", table, target)
+    plt.title(title)
     sns.scatterplot(
-        x="tsne-pca50-one", y="tsne-pca50-two",
+        x="tsne-one", y="tsne-two",
         palette=sns.color_palette("hls", 10),
         data=X,
         legend="full",
