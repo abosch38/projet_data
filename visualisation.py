@@ -16,22 +16,31 @@ def get_title(graphe, table, target):
 
 
 # print with scatter_matrix
-def print_scatter(X, table, target):
+def print_scatter(df, table):
     plt.figure()
-    scatter_matrix(X, diagonal='kde')
-    title = get_title("Scatter", table, target)
+    scatter_matrix(df, diagonal='kde')
+    title = "Scatter of the table : " + table
+    plt.xticks(rotation = 45)
+    plt.yticks(rotation = 45)
     plt.suptitle(title)
     plt.show()
 
 
 # to instantiate the PCA
 def get_PCA(X):
-    pca = PCA(n_components=3)
+    if len(X.columns) < 3:
+        nb_components = 2
+    else:
+        nb_components = 3
+       
+    pca = PCA(n_components=nb_components)
     pca_result = pca.fit_transform(X.values)
     
     X['pca-one'] = pca_result[:,0]
-    X['pca-two'] = pca_result[:,1] 
-    X['pca-three'] = pca_result[:,2]
+    X['pca-two'] = pca_result[:,1]
+    
+    if nb_components == 3:
+        X['pca-three'] = pca_result[:,2]
     
     return X, pca_result
 
@@ -69,6 +78,41 @@ def print_PCA_3D(X, Y, table, target):
     plt.show()
 
 
+# print a graph in 2D
+def print_graph_2D(X, table, target):
+    plt.figure(figsize=(16,10))
+    title = get_title("graph 2D", table, target)
+    plt.title(title)
+    columns = X.columns
+    sns.scatterplot(
+        x=X[columns[0]], y=X[columns[1]],
+        palette=sns.color_palette("hls", 10),
+        data=X,
+        legend="full",
+        alpha=0.3
+    )
+
+
+# print a graph in 3D
+def print_graph_3D(X, Y, table, target):
+    ax = plt.figure(figsize=(16,10)).gca(projection='3d')
+    columns = X.columns
+    ax.scatter(
+        xs=X[columns[0]],
+        ys=X[columns[1]],
+        zs=X[columns[2]],
+        c=Y,
+        cmap='tab10'
+    )
+    
+    ax.set_xlabel(columns[0])
+    ax.set_ylabel(columns[1])
+    ax.set_zlabel(columns[2])
+    title = get_title("graph 3D", table, target)
+    plt.title(title)
+    plt.show()
+
+
 # print with t-SNE
 def print_t_SNE(X, pca_result, table, target):
     tsne = TSNE(n_components=2, verbose=0, perplexity=40, n_iter=300)
@@ -87,4 +131,3 @@ def print_t_SNE(X, pca_result, table, target):
         legend="full",
         alpha=0.3,
     )
-    
