@@ -64,7 +64,7 @@ classify_visualise("task_constraints", task_constraints_targets, task_constraint
 machine_attributes_drop = ["attribute name","attribute value"]
 machine_attributes_targets = ["time","machine ID","attribute deleted"]
 
-classify_visualise("machine_attributes", machine_attributes_targets, machine_attributes_drop, 2, scatter = False, t_SNE = False)
+classify_visualise("machine_attributes", machine_attributes_targets, machine_attributes_drop, 2, t_SNE = False)
 # sampling 10 000 sample to avoid memory errors for the t-SNE and to have a more interresting plot
 classify_visualise("machine_attributes", machine_attributes_targets, machine_attributes_drop, 2, random = True, samples = 10000, scatter = False, PCA_2D = False, PCA_3D = False)
 
