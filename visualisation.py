@@ -20,8 +20,6 @@ def print_scatter(df, table):
     plt.figure()
     scatter_matrix(df, diagonal='kde')
     title = "Scatter of the table : " + table
-    plt.xticks(rotation = 45)
-    plt.yticks(rotation = 45)
     plt.suptitle(title)
     plt.show()
 
