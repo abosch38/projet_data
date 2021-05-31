@@ -4,7 +4,7 @@
 """
 
 from decompression import get_path_folder
-from visualisation import print_scatter, get_PCA, print_PCA_2D, print_PCA_3D, print_t_SNE, print_graph_2D, print_graph_3D
+from visualisation import print_scatter, get_PCA, print_PCA_2D, print_PCA_3D, print_t_SNE
 from classification import create_dataframe, create_model
 
 
@@ -33,13 +33,6 @@ def classify_visualise(folder_name, targets, list_drop = [], nb_cluster = 3, ran
                     
                     if t_SNE:
                         print_t_SNE(X_pca, pca_result, folder_name, target)
-            
-            if graph_2D:
-                print_graph_2D(X, folder_name, target)
-            
-            if graph_3D:
-                print_graph_3D(X, y, folder_name, target) 
-                print_graph_3D(X, y_pred, folder_name, target)
 
 
 

@@ -78,41 +78,6 @@ def print_PCA_3D(X, Y, table, target):
     plt.show()
 
 
-# print a graph in 2D
-def print_graph_2D(X, table, target):
-    plt.figure(figsize=(16,10))
-    title = get_title("graph 2D", table, target)
-    plt.title(title)
-    columns = X.columns
-    sns.scatterplot(
-        x=X[columns[0]], y=X[columns[1]],
-        palette=sns.color_palette("hls", 10),
-        data=X,
-        legend="full",
-        alpha=0.3
-    )
-
-
-# print a graph in 3D
-def print_graph_3D(X, Y, table, target):
-    ax = plt.figure(figsize=(16,10)).gca(projection='3d')
-    columns = X.columns
-    ax.scatter(
-        xs=X[columns[0]],
-        ys=X[columns[1]],
-        zs=X[columns[2]],
-        c=Y,
-        cmap='tab10'
-    )
-    
-    ax.set_xlabel(columns[0])
-    ax.set_ylabel(columns[1])
-    ax.set_zlabel(columns[2])
-    title = get_title("graph 3D", table, target)
-    plt.title(title)
-    plt.show()
-
-
 # print with t-SNE
 def print_t_SNE(X, pca_result, table, target):
     tsne = TSNE(n_components=2, verbose=0, perplexity=40, n_iter=300)
